@@ -1,5 +1,5 @@
 {
-  "name": "ada-rn-wrapper",
+  "name": "@piebits/ada-rn-wrapper",
   "version": "0.1.0",
   "description": "React Native Wrapper for ada js lib",
   "main": "lib/commonjs/index",
@@ -34,11 +34,19 @@
   "keywords": [
     "react-native",
     "ios",
-    "android"
+    "android",
+    "piebits",
+    "piebits_cloud",
+    "ada",
+    "Advanced Auth",
+    "Authentication"
   ],
-  "repository": "https://github.com/piebits-org/ada-rn-wrapper",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/piebits-org/ada-rn-wrapper.git"
+  },
   "author": "piebits <vinayaknivalkar2002@gmail.com> (https://github.com/piebits-org)",
-  "license": "MIT",
+  "license": "Apache-2.0",
   "bugs": {
     "url": "https://github.com/piebits-org/ada-rn-wrapper/issues"
   },
