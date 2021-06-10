@@ -157,5 +157,9 @@
         }
       ]
     ]
+  },
+  "dependencies": {
+    "@piebits/ada": "^0.1.0",
+    "mobx": "^6.3.2"
   }
 }
