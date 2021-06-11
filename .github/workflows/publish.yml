@@ -12,6 +12,11 @@ jobs:
     steps:
       - name: Checkout
         uses: actions/checkout@v2
+        
+      - name: Setup Identity
+        run: |
+          git config --global user.name VinayakNivalkar
+          git config --global user.email vinayaknivalkar2002@gmail.com
       
       - name: Setup Node
         uses: actions/setup-node@v2.1.5
