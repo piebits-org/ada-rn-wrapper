@@ -21,10 +21,10 @@ jobs:
         
       - name: Prepare Package
         run: |
-          yarn
-          yarn prepare
+          npm install
+          npm run prepare
         
       - name: Publish Package
-        run: yarn release
+        run: npm run release
         env:
           NODE_AUTH_TOKEN: ${{secrets.NPM_TOKEN}}
