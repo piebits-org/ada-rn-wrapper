@@ -159,7 +159,11 @@
     ]
   },
   "dependencies": {
-    "@piebits/ada": "^0.1.0",
-    "mobx": "^6.3.2"
+    "@piebits/ada": "~0.1.0",
+    "@react-native-async-storage/async-storage": "^1.15.5",
+    "@types/ms": "^0.7.31",
+    "jsonwebtoken": "^8.5.1",
+    "mobx": "^6.3.2",
+    "ms": "^2.1.3"
   }
 }

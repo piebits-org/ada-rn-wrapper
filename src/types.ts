@@ -12,4 +12,6 @@ export interface WRAPPER_STATE {
   user: {
     [key: string]: any;
   };
+  status: 'loading' | 'loggedin' | 'notloggedin';
+  timestamp: number;
 }

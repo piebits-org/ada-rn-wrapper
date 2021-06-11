@@ -6,17 +6,24 @@ import type {
 import { store } from '../store';
 
 export class BASIC {
-  private ada: ADA;
+  private ada: ADA | undefined;
 
-  constructor(ada: ADA) {
+  constructor(ada: ADA | undefined) {
     this.ada = ada;
   }
 
   public signup: SIGNUP_METHOD = async (params) => {
     try {
-      const tokens = await this.ada.basic.signup(params);
-      store.tokens = tokens;
-      return Promise.resolve(tokens);
+      if (this.ada) {
+        const tokens = await this.ada.basic.signup(params);
+        store.setTokens(tokens);
+        store.setTokenTimestamp(new Date().getTime());
+        return Promise.resolve(tokens);
+      } else {
+        return Promise.reject(
+          new Error('ADA not Configured, have you used the configure method?')
+        );
+      }
     } catch (e) {
       return Promise.reject(e);
     }
@@ -24,9 +31,16 @@ export class BASIC {
 
   public signin: SIGNIN_METHOD = async (params) => {
     try {
-      const tokens = await this.ada.basic.signin(params);
-      store.tokens = tokens;
-      return Promise.resolve(tokens);
+      if (this.ada) {
+        const tokens = await this.ada.basic.signin(params);
+        store.setTokens(tokens);
+        store.setTokenTimestamp(new Date().getTime());
+        return Promise.resolve(tokens);
+      } else {
+        return Promise.reject(
+          new Error('ADA not Configured, have you used the configure method?')
+        );
+      }
     } catch (e) {
       return Promise.reject(e);
     }
