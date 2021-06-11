@@ -53,7 +53,7 @@
   "homepage": "https://github.com/piebits-org/ada-rn-wrapper#readme",
   "publishConfig": {
     "registry": "https://registry.npmjs.org/",
-    "access": "public
+    "access": "public"
   },
   "devDependencies": {
     "@commitlint/config-conventional": "^11.0.0",
