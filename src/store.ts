@@ -8,7 +8,7 @@ export class STORE {
     refresh_token: undefined,
   };
 
-  user: WRAPPER_STATE['user'] | undefined = undefined;
+  user: WRAPPER_STATE['user'] = {};
 
   status: WRAPPER_STATE['status'] = 'loading';
 
@@ -46,7 +46,7 @@ export class STORE {
       refresh_token: undefined,
     };
     this.status = 'notloggedin';
-    this.user = undefined;
+    this.user = {};
     this.token_timestamp = undefined;
     await AsyncStorage.clear();
   }

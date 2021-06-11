@@ -8,7 +8,7 @@ import type { WRAPPER_CONFIG } from './types';
 import { USEROPS } from './usserops';
 
 class ADA_WRAPPER {
-  public ada: ADA | undefined = undefined;
+  private ada: ADA | undefined = undefined;
 
   public basic: BASIC = new BASIC(undefined);
 
@@ -16,23 +16,23 @@ class ADA_WRAPPER {
 
   public store: STORE = store;
 
-  public expiration: number = ms('30m');
+  private expiration: number = ms('30m');
 
-  reaction = reaction;
+  public reaction = reaction;
 
-  deriveSecondsToRefresh(timestamp: number) {
+  private deriveSecondsToRefresh(timestamp: number) {
     const dts = timestamp + this.expiration;
     const diff = dts - new Date().getTime();
     return diff;
   }
 
-  initiateTimeout(time: number) {
+  private initiateTimeout(time: number) {
     setTimeout(() => {
       this.userops.refresh_token();
     }, time);
   }
 
-  async load() {
+  private async load() {
     try {
       const keys = await AsyncStorage.multiGet([
         '@ada/tokens',
@@ -84,5 +84,3 @@ class ADA_WRAPPER {
 const ada = new ADA_WRAPPER();
 
 export default ada;
-
-export { store };
