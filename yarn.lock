@@ -1621,10 +1621,10 @@
   dependencies:
     "@octokit/openapi-types" "^7.2.3"
 
-"@piebits/ada@~0.1.1":
-  version "0.1.1"
-  resolved "https://registry.yarnpkg.com/@piebits/ada/-/ada-0.1.1.tgz#0df054ba5c90123d5da361facdac879eeacec6bf"
-  integrity sha512-SiHv35N6fUins9gRaOYjNcAFS7zus/YKKGXRXzbuqD5C6IcAdPrA0LJGidIkPAoUvfpkMlKsz9hng/EFkkJo+A==
+"@piebits/ada@0.1.2":
+  version "0.1.2"
+  resolved "https://registry.yarnpkg.com/@piebits/ada/-/ada-0.1.2.tgz#6e8f2a2fdd56ac3971433bb6a14f4c143060adc6"
+  integrity sha512-22oYp2fZuHZsTzVCx2gl/2Gr9KFkJqAd8qlF1RUM+oSK/i8LzzMZf+LeB5NWQjrQPPWS3RSBp2+LcmkzvRl4ww==
   dependencies:
     axios "^0.21.1"
 
