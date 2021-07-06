@@ -61,4 +61,37 @@ export class USEROPS {
       return Promise.reject(e);
     }
   };
+
+  public reset_pass = async (email: string) => {
+    try {
+      if (this.ada) {
+        await this.ada.userops.reset_password({ email });
+        return Promise.resolve();
+      } else {
+        return Promise.reject(
+          new Error('ADA not Configured, have you used the configure method?')
+        );
+      }
+    } catch (e) {
+      return Promise.reject(e);
+    }
+  };
+
+  public verify_token = async (token: string, password: string) => {
+    try {
+      if (this.ada) {
+        await this.ada.userops.verify_token({
+          token,
+          password,
+        });
+        return Promise.resolve();
+      } else {
+        return Promise.reject(
+          new Error('ADA not Configured, have you used the configure method?')
+        );
+      }
+    } catch (e) {
+      return Promise.reject(e);
+    }
+  };
 }
