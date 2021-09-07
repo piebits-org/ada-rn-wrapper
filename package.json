@@ -1,6 +1,6 @@
 {
   "name": "@piebits/ada-rn-wrapper",
-  "version": "0.1.4",
+  "version": "0.1.5",
   "description": "React Native Wrapper for ada js lib",
   "main": "lib/commonjs/index",
   "module": "lib/module/index",
