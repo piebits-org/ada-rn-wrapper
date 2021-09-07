@@ -42,15 +42,15 @@ ada.basic.signin({
   password: 'johndoepassword'
 })
 
-const user = await ada.userops.fetch_self() // fetch the user manually, returns the new user object
+const user = await ada.userops.fetchSelf() // fetch the user manually, returns the new user object
 
-const tokens = await ada.userops.refresh_token() // manually refresh token, returns the new access token
+const tokens = await ada.userops.refreshToken() // manually refresh token, returns the new access token
 
 ada.userops.logout() // logouts the currently loggedin user
 
-ada.userops.reset_pass('email here') // triggers a password reset for the given email
+ada.userops.resetPass('email here') // triggers a password reset for the given email
 
-ada.userops.verify_token('token recieved from url', 'user entered password') // resets the user password
+ada.userops.verifyToken('token recieved from url', 'user entered password') // resets the user password
 
 ada.store //the actually store object of the library, contains all data e.g. ada.store.user contains user info
 ```

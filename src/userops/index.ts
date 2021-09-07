@@ -1,5 +1,6 @@
-import { ADA, store as ada_lib_store } from '@piebits/ada';
+import { ADA, store as ada_store } from '@piebits/ada';
 import type { FETCH_SELF_METHOD } from '@piebits/ada/lib/userops/types';
+import { tokenExpired } from '../token_exp';
 import { store } from '../store';
 
 export class USEROPS {
@@ -9,12 +10,21 @@ export class USEROPS {
     this.ada = ada;
   }
 
-  public fetch_self: FETCH_SELF_METHOD = async () => {
+  public fetchSelf: FETCH_SELF_METHOD = async () => {
     try {
       if (this.ada) {
-        ada_lib_store.set('tokens', store.tokens);
         const user = await this.ada.userops.fetch_self();
-        store.setUser(user);
+        let tokens = store.tokens;
+        if (!tokens.access_token) {
+          tokens = ada_store.state.tokens;
+        }
+        await store.setCredentials(
+          {
+            tokens,
+            user,
+          },
+          false
+        );
         return Promise.resolve(user);
       } else {
         return Promise.reject(
@@ -26,17 +36,19 @@ export class USEROPS {
     }
   };
 
-  public refresh_token = async () => {
+  public refreshToken = async () => {
     try {
       if (this.ada) {
-        ada_lib_store.set('tokens', store.tokens);
         const tokens = await this.ada.userops.refresh_token();
-        store.setTokens({
-          access_token: tokens.access_token,
-          refresh_token: store.tokens.refresh_token,
-        });
-        store.setTokenTimestamp(new Date().getTime());
-        return Promise.resolve(store.tokens);
+        await store.setCredentials(
+          {
+            tokens,
+            user: store.user,
+          },
+          false
+        );
+        await this.fetchSelf();
+        return Promise.resolve(tokens);
       } else {
         return Promise.reject(
           new Error('ADA not Configured, have you used the configure method?')
@@ -50,7 +62,7 @@ export class USEROPS {
   public logout = async () => {
     try {
       if (this.ada) {
-        await store.reset();
+        await store.resetCredentials();
         return Promise.resolve();
       } else {
         return Promise.reject(
@@ -62,7 +74,7 @@ export class USEROPS {
     }
   };
 
-  public reset_pass = async (email: string) => {
+  public resetPass = async (email: string) => {
     try {
       if (this.ada) {
         await this.ada.userops.reset_password({ email });
@@ -77,7 +89,7 @@ export class USEROPS {
     }
   };
 
-  public verify_token = async (token: string, password: string) => {
+  public verifyToken = async (token: string, password: string) => {
     try {
       if (this.ada) {
         await this.ada.userops.verify_token({
@@ -92,6 +104,20 @@ export class USEROPS {
       }
     } catch (e) {
       return Promise.reject(e);
+    }
+  };
+
+  public getAccessToken = async () => {
+    const token = store.tokens.access_token;
+    if (!token) {
+      throw Error('access token missing are you sure user is logged in !');
+    }
+    const expired = tokenExpired(token);
+    if (expired) {
+      const tokens = await this.refreshToken();
+      return tokens.access_token;
+    } else {
+      return token;
     }
   };
 }
