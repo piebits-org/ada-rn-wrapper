@@ -1,24 +1,26 @@
 import type { ADA } from '@piebits/ada';
 import type {
-  SIGNIN_METHOD,
-  SIGNUP_METHOD,
+  SIGNIN_PARAMS,
+  SIGNUP_PARAMS,
 } from '@piebits/ada/lib/basic/types';
-import { store } from '../store';
+import { USEROPS } from '../userops';
 
 export class BASIC {
   private ada: ADA | undefined;
 
+  private userops: USEROPS;
+
   constructor(ada: ADA | undefined) {
     this.ada = ada;
+    this.userops = new USEROPS(ada);
   }
 
-  public signup: SIGNUP_METHOD = async (params) => {
+  public signup = async (params: SIGNUP_PARAMS) => {
     try {
       if (this.ada) {
-        const tokens = await this.ada.basic.signup(params);
-        store.setTokens(tokens);
-        store.setTokenTimestamp(new Date().getTime());
-        return Promise.resolve(tokens);
+        await this.ada.basic.signup(params);
+        await this.userops.fetchSelf();
+        return Promise.resolve();
       } else {
         return Promise.reject(
           new Error('ADA not Configured, have you used the configure method?')
@@ -29,13 +31,12 @@ export class BASIC {
     }
   };
 
-  public signin: SIGNIN_METHOD = async (params) => {
+  public signin = async (params: SIGNIN_PARAMS) => {
     try {
       if (this.ada) {
-        const tokens = await this.ada.basic.signin(params);
-        store.setTokens(tokens);
-        store.setTokenTimestamp(new Date().getTime());
-        return Promise.resolve(tokens);
+        await this.ada.basic.signin(params);
+        await this.userops.fetchSelf();
+        return Promise.resolve();
       } else {
         return Promise.reject(
           new Error('ADA not Configured, have you used the configure method?')

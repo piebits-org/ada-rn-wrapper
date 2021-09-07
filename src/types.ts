@@ -2,6 +2,7 @@ export interface WRAPPER_CONFIG {
   app_id: string;
   version: string;
   expiration: string;
+  public_key: string;
 }
 
 export interface WRAPPER_STATE {
@@ -13,5 +14,6 @@ export interface WRAPPER_STATE {
     [key: string]: any;
   };
   status: 'loading' | 'loggedin' | 'notloggedin';
-  timestamp: number;
 }
+
+export type ADACREDENTIALS = Omit<WRAPPER_STATE, 'status'>;

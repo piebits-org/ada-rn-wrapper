@@ -1,12 +1,13 @@
-import ada from '../../src/index';
+import { ada } from '../../src/index';
 import * as React from 'react';
 
 import { StyleSheet, View, Button, Text } from 'react-native';
 
 ada.configure({
-  app_id: '60c114cfd64cf32579d03ddd',
-  version: 'v0.1.0',
+  app_id: '6136450b55df231c1199d194',
+  version: 'v0.5.0',
   expiration: '30m',
+  public_key: '35a8aeba79bda7cb72fdd33f01c3f78e',
 });
 
 export default function App() {
@@ -14,8 +15,8 @@ export default function App() {
 
   ada.reaction(
     () => ada.store.status,
-    (status) => {
-      setstatus(status);
+    (authStatus) => {
+      setstatus(authStatus);
     }
   );
 
