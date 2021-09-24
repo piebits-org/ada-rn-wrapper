@@ -13,12 +13,16 @@ ada.configure({
 export default function App() {
   const [status, setstatus] = React.useState('loading');
 
-  ada.reaction(
+  ada.store.events.addListener('AuthState', (event) => {
+    setstatus(event);
+  });
+
+  /*ada.reaction(
     () => ada.store.status,
     (authStatus) => {
       setstatus(authStatus);
     }
-  );
+  );*/
 
   if (status === 'loggedin') {
     return (

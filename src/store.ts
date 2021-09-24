@@ -73,7 +73,7 @@ export class STORE {
           exp = 0;
         }
         return {
-          expired: exp <= Date.now(),
+          expired: exp <= Date.now() + 300000,
           credentials,
         };
       } else {
@@ -96,9 +96,9 @@ export class STORE {
       refresh_token: undefined,
     };
     this.user = {};
+    this.setStatus('notloggedin');
     ada_store.set('user', this.user);
     ada_store.set('tokens', this.tokens);
-    this.setStatus('notloggedin');
     return did_reset;
   }
 

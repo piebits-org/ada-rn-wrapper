@@ -52,7 +52,7 @@ class ADA_WRAPPER {
           this.store.setCredentials(resp.credentials, true, false);
           await this.userops.refreshToken();
         } else {
-          this.store.setCredentials(resp.credentials, false);
+          this.store.setCredentials(resp.credentials, false, true);
         }
       }
       return Promise.resolve();
