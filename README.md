@@ -8,9 +8,9 @@ React Native Wrapper for ada js lib
 npm install @piebits/ada-rn-wrapper
 ```
 
-> required step as the library uses react-native-async-storage to persist data
+> required step as the library uses react-native-keychain to persist auth data
 ```sh
-npm install @@react-native-async-storage/async-storage
+npm install react-native-keychain
 ```
 
 ## Usage
@@ -29,6 +29,11 @@ ada.configure({
 ada.reaction(() => ada.store.status, (status) => {
   console.log(`Status Changes, current status ${status}`);
 })
+
+// event emitter to waatch authState change
+ada.store.events.addListener('AuthState', (status) => {
+  console.log(`Status Changes, current status ${status}`);
+});
 
 // signup the user with basic provider
 ada.basic.signup({
