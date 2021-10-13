@@ -88,6 +88,7 @@ export class STORE {
   }
 
   async resetCredentials() {
+    this.setStatus('notloggedin');
     const did_reset = await KeyChain.resetGenericPassword({
       service: 'org.piebits.cloud.ada',
     });
@@ -96,7 +97,6 @@ export class STORE {
       refresh_token: undefined,
     };
     this.user = {};
-    this.setStatus('notloggedin');
     ada_store.set('user', this.user);
     ada_store.set('tokens', this.tokens);
     return did_reset;
